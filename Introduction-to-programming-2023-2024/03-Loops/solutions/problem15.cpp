@@ -6,16 +6,16 @@ int main() {
   int n;
   cin >> n;
 
-  for (int i=0; i<n; i++) {
-    for(int j=n; j>i; j--) {
-
-      // for(int k=0; k<i; k++) {
-      // 	cout << ' ';
-      // }
+  for (int i = 0; i < n; i++) {
+    int x = i;
+    while (x--) {
+      cout << ' ';
+    }
+    for (int j = n; j > i; j--) {
       cout << '*';
     }
     cout << endl;
   }
-  
+
   return 0;
 }
