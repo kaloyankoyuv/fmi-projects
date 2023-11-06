@@ -17,7 +17,7 @@ int pow(int number, int exponent) {
   return result;
 }
 
-int calculate(int x, int n) {
+float calculate(float x, int n) {
   int result = 0;
 
   for (int i = 0; i <= n; i++) {
