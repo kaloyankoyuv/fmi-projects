@@ -126,6 +126,7 @@ void runGame(int secretNumber, int N) {
   }
 
   std::cout << std::endl << "You lost!" << std::endl;
+  std::cout << "The secret number was: " << secretNumber << std::endl;
 }
 
 int main() {
