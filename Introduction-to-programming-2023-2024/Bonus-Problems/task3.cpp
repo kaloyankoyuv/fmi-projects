@@ -32,7 +32,10 @@ int main() {
   float x;
   std::cin >> x;
 
-  std::cout << calculate(x, 6) << std::endl;
+  int n;
+  std::cin >> n;
+
+  std::cout << calculate(x, n) << std::endl;
 
   return 0;
 }
