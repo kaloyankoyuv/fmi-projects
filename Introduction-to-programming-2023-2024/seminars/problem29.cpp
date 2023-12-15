@@ -94,7 +94,11 @@ int main() {
 
   std::cout << std::endl;
 
-  matrix = zoomMatrix(matrix, n, m, 2);
+  int k;
+  std::cin >> k;
+  std::cout << std::endl;
+
+  matrix = zoomMatrix(matrix, n, m, k);
 
   printMatrix(matrix, n, m);
 
