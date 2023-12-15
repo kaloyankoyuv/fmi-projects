@@ -8,6 +8,12 @@ int **createMatrix(int n, int m) {
     matrix[i] = new int[m];
   }
 
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      matrix[i][j] = 0;
+    }
+  }
+
   return matrix;
 }
 
@@ -37,15 +43,6 @@ void cinMatrix(int **matrix, int n, int m) {
   }
 }
 
-void copyMatrix(int **matrix, int **newMatrix, int n, int m) {
-
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-      matrix[i][j] = newMatrix[i][j];
-    }
-  }
-}
-
 int **enlargeMatrix(int **matrix, int &n, int &m) {
 
   int oldN = n;
@@ -54,12 +51,6 @@ int **enlargeMatrix(int **matrix, int &n, int &m) {
   m = (m * 2) + 1;
 
   int **newMatrix = createMatrix(n, m);
-
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-      newMatrix[i][j] = 0;
-    }
-  }
 
   for (int i = 1; i < n; i += 2) {
     for (int j = 1; j < m; j += 2) {
@@ -76,22 +67,17 @@ int **zoomMatrix(int **matrix, int &n, int &m, int iter) {
 
   while (iter--) {
 
-    int **newMatrix = enlargeMatrix(matrix, n, m);
-    
+    matrix = enlargeMatrix(matrix, n, m);
+
     for (int i = 1; i < n; i += 2) {
       for (int j = 1; j < m; j += 2) {
 
-        int x = newMatrix[i][j] / 2;
-	
-        newMatrix[i][j - 1] += x;
-        newMatrix[i][j + 1] += x;
-        newMatrix[i - 1][j] += x;
-        newMatrix[i + 1][j] += x;
-	
+        matrix[i][j - 1] += matrix[i][j] / 2;
+        matrix[i][j + 1] += matrix[i][j] / 2;
+        matrix[i - 1][j] += matrix[i][j] / 2;
+        matrix[i + 1][j] += matrix[i][j] / 2;
       }
     }
-
-    matrix = newMatrix;
   }
 
   return matrix;
@@ -108,11 +94,11 @@ int main() {
 
   std::cout << std::endl;
 
-  int **zoomedMatrix = zoomMatrix(matrix, n, m, 2);
+  matrix = zoomMatrix(matrix, n, m, 2);
 
-  printMatrix(zoomedMatrix, n, m);
+  printMatrix(matrix, n, m);
 
-  deleteMatrix(zoomedMatrix, n);
+  deleteMatrix(matrix, n);
 
   return 0;
 }
