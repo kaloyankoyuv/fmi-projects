@@ -10,7 +10,7 @@ c = 2
 
 for i in range(h):
 	for j in range(w):
-		image[j, i] = [int(color) for color in lines[c].split()]
+		image[i, j] = [int(color) for color in lines[c].split()]
 		c += 1
 
 cv2.imshow("A New Image", image)
