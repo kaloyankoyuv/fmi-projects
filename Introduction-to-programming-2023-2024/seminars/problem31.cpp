@@ -134,7 +134,7 @@ int main() {
     }
   }
 
-  picture = invertPicture(picture, heigth, width);
+  // picture = invertPicture(picture, heigth, width);
 
   picture = zoomPicture(picture, heigth, width, 1);
 
