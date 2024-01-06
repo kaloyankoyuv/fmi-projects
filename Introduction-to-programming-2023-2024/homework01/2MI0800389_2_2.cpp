@@ -1,69 +1,61 @@
 #include <iostream>
 
-int **createMatrix(int n, int m) {
-
-  int **matrix = new int *[n];
-
-  for (int i = 0; i < n; i++) {
-    matrix[i] = new int[m];
-  }
-
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-      matrix[i][j] = 0;
-    }
-  }
-
-  return matrix;
-}
-
-void deleteMatrix(int **matrix, int n) {
-
-  for (int i = 0; i < n; i++) {
-    delete[] matrix[i];
-  }
-
-  delete[] matrix;
-}
-
-void printMatrix(int **matrix, int n, int m) {
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-      std::cout << matrix[i][j] << ' ';
-    }
-    std::cout << std::endl;
-  }
-}
-
-void cinMatrix(int **matrix, int n, int m) {
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-      std::cin >> matrix[i][j];
-    }
-  }
-}
-
-int findErrorIndexCol(int **matrix, int n, int m) {
+int log2(int x) {
 
   int result = 0;
-  for(int i = 1; i<n; i+=2) {
-    
+
+  while (x > 0) {
+    result++;
+    x /= 2;
   }
+
+  return result;
 }
 
-int findErrorIndexRow(int **matrix, int n, int m) {
-  
+int pow2(int x) {
+
+  int result = 1;
+
+  for (int i = 0; i < x; i++) {
+    result *= 2;
+  }
+
+  return result;
 }
+
+bool isBitInPosXOn(int num, int pos) { return num & (1 << pos); }
 
 int main() {
 
   int n;
   std::cin >> n;
 
-  int **matrix = createMatrix(n / 16, 16);
-  cinMatrix(matrix, n / 16, 16);
+  int *data = new int[n];
 
-  std::cout << findErrorIndexRow(matrix, n/16, 16) << " " << findErrorIndexCol(matrix, n/16, 16);
+  for (int i = 0; i < n; i++) {
+    std::cin >> data[i];
+  }
+
+  int result = 0;
+
+  for (int i = 0; i < log2(n); i++) {
+
+    int sum = 0;
+
+    for (int j = 0; j < n; j++) {
+      if (isBitInPosXOn(j, i)) {
+        sum += data[j];
+      }
+    }
+
+    if (sum % 2 != 0) {
+      result += pow2(i);
+    }
+  }
+
+  std::cout << "Hacker is in room: " << result << std::endl;
+
+  delete[] data;
 
   return 0;
 }

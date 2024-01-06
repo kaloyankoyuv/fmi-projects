@@ -1,11 +1,19 @@
 #include <iostream>
 
-void resizeArray(int **orig, int size) {
-  int *resized = new int[size * 2];
-  for (int i = 0; i < size; i++)
-    resized[i] = (*orig)[i];
-  delete[] *orig;
-  *orig = resized;
+int *resizeArray(int *arr, int &size) {
+
+  int oldSize = size;
+
+  size++;
+
+  int *result = new int[size];
+  for (int i = 0; i < oldSize; i++) {
+    result[i] = arr[i];
+  }
+
+  delete[] arr;
+  
+  return result;
 }
 
 int main() {
@@ -15,26 +23,23 @@ int main() {
 
   int *arr = new int[n];
 
-  int i = 0;
   int x = 1;
+  int i = 0;
   while (x != 0) {
-
     std::cin >> x;
     arr[i] = x;
     i++;
 
-    if (i > n) {
-      int **parr = &arr; 
-      resizeArray(parr, n);
-      n *= 2;
+    if (i >= n) {
+      arr = resizeArray(arr, n);
     }
   }
 
-  for (int k = 0; k <= i; k++) {
-    std::cout << arr[k] << ' ';
+  for (int i = 0; i < n; i++) {
+    std::cout << arr[i] << " ";
   }
-
-  delete[] arr;
+  
+  std::cout << std::endl;
 
   return 0;
 }
