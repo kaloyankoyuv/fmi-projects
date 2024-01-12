@@ -136,7 +136,10 @@ int main() {
 
   // picture = invertPicture(picture, heigth, width);
 
-  picture = zoomPicture(picture, heigth, width, 1);
+  int iter;
+  std::cin >> iter;
+
+  picture = zoomPicture(picture, heigth, width, iter);
 
   out << heigth;
   out << std::endl;
