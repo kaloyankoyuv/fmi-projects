@@ -19,7 +19,7 @@ int main() {
   
   std::cin >> n >> power;
 
-  std::cout << pow(n, power) << std::endl;;
+  std::cout << pow(n, power) << std::endl;
 
   return 0;
 }
