@@ -74,7 +74,7 @@ public:
   void set_name(char *name) {
     delete[] this->name;
     this->name = new char[myStrLen(name)];
-    for (int i = 0; i < myStrLen(name); i++) {
+    for (int i = 0; i <= myStrLen(name); i++) {
       this->name[i] = name[i];
     }
   }
@@ -198,6 +198,9 @@ int main() {
   Person p1("Kaloyan", 'm', 19);
   Person p2("Georgi", 'm', 20);
   Person p3("Simona", 'f', 23);
+
+  p1.set_name("Hll");
+  std::cout << p1.get_name();
 
   Person *persons[] = {&p1, &p2, &p3};
 
