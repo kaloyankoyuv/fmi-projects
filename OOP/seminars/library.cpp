@@ -249,9 +249,7 @@ public:
     this->books = newBooks;
     this->nbooks += 1;
   }
-  void change_librarian(Person *p) {
-    this->librarian = p;
-  }
+  void change_librarian(Person *p) { this->librarian = p; }
 };
 
 std::ostream &operator<<(std::ostream &out, const Library &l) {
