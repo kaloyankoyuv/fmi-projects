@@ -7,13 +7,13 @@ private:
   int numbers_sum;
   int numbers_prod;
   int numbers_max;
-  int numbers_average;
+  double numbers_average;
 
 public:
   Statistics() {
     this->numbers_num = 0;
     this->numbers_sum = 0;
-    this->numbers_prod = 0;
+    this->numbers_prod = 1;
     this->numbers_max = 0;
     this->numbers_average = 0;
   }
@@ -52,11 +52,11 @@ public:
     this->numbers_average = (this->numbers_average + x) / this->numbers_num;
   }
 
-  int num() { return numbers_num; }
-  int sum() { return numbers_sum; }
-  int prod() { return numbers_prod; }
-  int max() { return numbers_max; }
-  int average() { return numbers_average; }
+  int num() { return this->numbers_num; }
+  int sum() { return this->numbers_sum; }
+  int prod() { return this->numbers_prod; }
+  int max() { return this->numbers_max; }
+  double average() { return this->numbers_average; }
 };
 
 int main() {
