@@ -17,4 +17,8 @@ int main() {
   std::cout << l1 << std::endl;
   l1.insertAt(2, 50);
   std::cout << l1 << std::endl;
+  l1.deleteAt(3);
+  std::cout << l1 << std::endl;
+  l1.deleteAt(0);
+  std::cout << l1 << std::endl;
 }

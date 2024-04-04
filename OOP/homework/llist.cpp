@@ -98,13 +98,26 @@ public:
   void insertAt(int index, const T &x) {
     box<T> *cur = this->first;
     box<T> *prev = this->first;
-    for(int i = 0; i<index; i++) {
+    for (int i = 0; i < index; i++) {
       prev = cur;
       cur = cur->next;
     }
     box<T> *newBox = new box<T>{x, cur};
     prev->next = newBox;
     this->size++;
+  }
+  
+  void deleteAt(int index) { // doesnt work for index=0
+    box<T> *cur = this->first;
+    box<T> *prev = this->first;
+    for (int i = 0; i < index; i++) {
+      prev = cur;
+      cur = cur->next;
+    }
+    box<T> *save = cur->next;
+    delete cur;
+    prev->next = save;
+    this->size--;
   }
 };
 
