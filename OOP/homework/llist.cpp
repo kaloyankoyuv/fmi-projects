@@ -45,6 +45,16 @@ public:
 
   LList<T>(const LList<T> &other) { copy(other); }
 
+  LList<T>(int x, int y) {
+    this->first = new box<int>{x, nullptr};
+    box<int> *cur = this->first;
+    for (int i = x + 1; i <= y; i++) {
+      cur->next = new box<int>{i, nullptr};
+      cur = cur->next;
+    }
+    this->size = y - x + 1;
+  }
+
   ~LList<T>() { clear(); }
 
   LList<T> &operator=(const LList<T> &other) {
@@ -69,7 +79,6 @@ public:
     }
     box<T> *cur = this->first;
     box<T> *other_cur = other.first;
-
     while (cur != nullptr && other_cur != nullptr &&
            cur->data == other.cur->data) {
       cur = cur->next;
@@ -78,13 +87,46 @@ public:
     return cur = nullptr;
   }
 
+  LList<T> &operator+=(const T &x) {
+    box<T> *cur = this->first;
+    box<T> *prev = this->first;
+    while (cur != nullptr) {
+      prev = cur;
+      cur = cur->next;
+    }
+    cur = new box<T>{x, nullptr};
+    prev->next = cur;
+    this->size++;
+    return *this;
+  }
+
   template <typename R>
   friend std::ostream &operator<<(std::ostream &out, const LList<R> &ll);
 
   int get_size() { return this->size; }
 
+  T get_ith(T n) {
+    box<T> *crr = this->first;
+    for (int i = 0; i < n; i++) {
+      crr = crr->next;
+    }
+    return crr->data;
+  }
+
   void push(const T &x) {
-    this->first = new box<T>{x, first};
+    this->first = new box<T>{x, this->first};
+    this->size++;
+  }
+
+  void push_back(const T &x) {
+    box<T> *cur = this->first;
+    box<T> *prev = this->first;
+    while (cur != nullptr) {
+      prev = cur;
+      cur = cur->next;
+    }
+    cur = new box<T>{x, nullptr};
+    prev->next = cur;
     this->size++;
   }
 
@@ -96,6 +138,12 @@ public:
   }
 
   void insertAt(int index, const T &x) {
+    if (index == 0) {
+      box<T> *newBox = new box<T>{x, this->first};
+      this->first = newBox;
+      this->size++;
+      return;
+    }
     box<T> *cur = this->first;
     box<T> *prev = this->first;
     for (int i = 0; i < index; i++) {
@@ -112,6 +160,7 @@ public:
       box<T> *save = this->first->next;
       delete this->first;
       this->first = save;
+      this->size--;
       return;
     }
     box<T> *cur = this->first;
@@ -124,6 +173,40 @@ public:
     delete cur;
     prev->next = save;
     this->size--;
+  }
+
+  void removeAll(const T &x) { //needs fixing
+
+    box<T> *cur = this->first;
+    box<T> *prev = this->first;
+    while (cur != nullptr) {
+      if(this->first->data == x) {
+	pop();
+      } else {
+	if (cur->data == x) {
+	  box<T> *save = cur->next;
+	  delete cur;
+	  prev->next = save;
+	  cur = save;
+	  this->size--;
+	} else {
+	  prev = cur;
+	  cur = cur->next;
+	}
+      }
+    }
+  }
+
+  int count(const T &x) {
+    int result = 0;
+    box<T> *cur = this->first;
+    while (cur != nullptr) {
+      if (cur->data == x) {
+        result++;
+      }
+      cur = cur->next;
+    }
+    return result;
   }
 };
 

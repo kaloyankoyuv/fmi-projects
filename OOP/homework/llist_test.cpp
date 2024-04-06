@@ -1,26 +1,18 @@
-#include <iostream>
 #include "llist.cpp"
+#include <iostream>
 
 int main() {
   LList<int> l1;
-  l1.push(4);
+  l1.insertAt(0, 37);
+  l1.insertAt(1, 1);
+  l1.insertAt(2, 37);
+  l1.insertAt(3, 37);
+  l1.insertAt(4, 37);
+  l1.insertAt(5, 1);
   std::cout << l1 << std::endl;
-  l1.push(5);
+  l1.removeAll(37);
   std::cout << l1 << std::endl;
-  l1.insertAt(1, 30);
-  std::cout << l1 << std::endl;
-  l1.push(6);
-  std::cout << l1 << std::endl;
-  l1.push(7);
-  std::cout << l1 << std::endl;
-  l1.insertAt(3, 40);
-  std::cout << l1 << std::endl;
-  l1.insertAt(2, 50);
-  std::cout << l1 << std::endl;
-  l1.deleteAt(3);
-  std::cout << l1 << std::endl;
-  l1.deleteAt(0);
-  std::cout << l1 << std::endl;
-  l1.deleteAt(4);
-  std::cout << l1 << std::endl;
+
+
+  return 0;
 }
