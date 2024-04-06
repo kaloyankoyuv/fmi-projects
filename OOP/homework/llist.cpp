@@ -106,8 +106,14 @@ public:
     prev->next = newBox;
     this->size++;
   }
-  
-  void deleteAt(int index) { // doesnt work for index=0
+
+  void deleteAt(int index) {
+    if (index == 0) {
+      box<T> *save = this->first->next;
+      delete this->first;
+      this->first = save;
+      return;
+    }
     box<T> *cur = this->first;
     box<T> *prev = this->first;
     for (int i = 0; i < index; i++) {

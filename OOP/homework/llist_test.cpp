@@ -21,4 +21,6 @@ int main() {
   std::cout << l1 << std::endl;
   l1.deleteAt(0);
   std::cout << l1 << std::endl;
+  l1.deleteAt(4);
+  std::cout << l1 << std::endl;
 }
