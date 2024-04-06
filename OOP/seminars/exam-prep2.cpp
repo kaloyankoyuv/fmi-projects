@@ -34,7 +34,7 @@ public:
     return result;
   }
 
-  Land operator+=(const rect &r) {
+  Land &operator+=(const rect &r) {
     this->maxy = std::max(this->maxy, r.y);
     this->sumx = this->sumx + r.x;
     this->fence = 2 * this->maxy + 2 * this->sumx;
