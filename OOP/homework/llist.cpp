@@ -55,8 +55,6 @@ public:
     this->size = y - x + 1;
   }
 
-  ~LList<T>() { clear(); }
-
   LList<T> &operator=(const LList<T> &other) {
     if (this != &other) {
       clear();
@@ -211,8 +209,8 @@ public:
   }
 
   void reverse() {
-    for (int i = 0; i < this->size/2; i++) {
-      std::swap((*this)[i], (*this)[this->size-i-1]);
+    for (int i = 0; i < this->size / 2; i++) {
+      std::swap((*this)[i], (*this)[this->size - i - 1]);
     }
   }
 
@@ -221,6 +219,8 @@ public:
       (*this)[i] = f((*this)[i]);
     }
   }
+
+  ~LList<T>() { clear(); }
 };
 
 template <typename T>
