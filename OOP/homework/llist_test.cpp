@@ -3,16 +3,20 @@
 
 int main() {
   LList<int> l1;
-  l1.insertAt(0, 37);
-  l1.insertAt(1, 1);
-  l1.insertAt(2, 37);
-  l1.insertAt(3, 37);
-  l1.insertAt(4, 37);
-  l1.insertAt(5, 1);
-  std::cout << l1 << std::endl;
-  l1.removeAll(37);
-  std::cout << l1 << std::endl;
+  l1.push(4);
+  l1.push(7);
+  l1.push(9);
+  l1.push(3);
+  l1.push(5);
 
+  LList<int> l2;
+  l2.push(2);
+  l2.push(8);
+  l2.push(6);
+  l2.push(1);
 
+  std::cout << l1 << std::endl;
+  std::cout << l2 << std::endl;
+  
   return 0;
 }

@@ -1,6 +1,8 @@
+#include <functional>
 #include <iostream>
 
 template <typename T> struct box {
+
   T data;
   box<T> *next;
 };
@@ -24,14 +26,12 @@ private:
       this->first = nullptr;
       return;
     }
-
     this->size = other.size;
     this->first = new box<T>{other.first->data, nullptr};
     box<T> *previous = this->first;
     box<T> *other_cur = other.first->next;
-
     while (other_cur != nullptr) {
-      previous->next = new box{other_cur->data, nullptr};
+      previous->next = new box<T>{other_cur->data, nullptr};
       other_cur = other_cur->next;
       previous = previous->next;
     }
@@ -100,14 +100,20 @@ public:
     return *this;
   }
 
-  template <typename R>
-  friend std::ostream &operator<<(std::ostream &out, const LList<R> &ll);
+  LList<T> &operator+=(LList<T> &other) {
+    this->append(other);
+    return *this;
+  }
+
+  LList<T> operator+(LList<T> &other) { return this->concat(other); }
 
   int get_size() { return this->size; }
 
-  T get_ith(T n) {
+  box<T> *get_first() { return this->first; }
+
+  T get_ith(int index) {
     box<T> *crr = this->first;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < index; i++) {
       crr = crr->next;
     }
     return crr->data;
@@ -139,9 +145,7 @@ public:
 
   void insertAt(int index, const T &x) {
     if (index == 0) {
-      box<T> *newBox = new box<T>{x, this->first};
-      this->first = newBox;
-      this->size++;
+      push(x);
       return;
     }
     box<T> *cur = this->first;
@@ -157,10 +161,7 @@ public:
 
   void deleteAt(int index) {
     if (index == 0) {
-      box<T> *save = this->first->next;
-      delete this->first;
-      this->first = save;
-      this->size--;
+      pop();
       return;
     }
     box<T> *cur = this->first;
@@ -175,24 +176,11 @@ public:
     this->size--;
   }
 
-  void removeAll(const T &x) { //needs fixing
-
-    box<T> *cur = this->first;
-    box<T> *prev = this->first;
-    while (cur != nullptr) {
-      if(this->first->data == x) {
-	pop();
-      } else {
-	if (cur->data == x) {
-	  box<T> *save = cur->next;
-	  delete cur;
-	  prev->next = save;
-	  cur = save;
-	  this->size--;
-	} else {
-	  prev = cur;
-	  cur = cur->next;
-	}
+  void removeAll(const T &x) {
+    for (int i = 0; i < this->size; i++) {
+      if ((*this)[i] == x) {
+        deleteAt(i);
+        i--;
       }
     }
   }
@@ -208,11 +196,36 @@ public:
     }
     return result;
   }
+
+  LList<T> &append(LList<T> &other) {
+    for (int i = 0; i < other.size; i++) {
+      this->push_back(other[i]);
+    }
+    return *this;
+  }
+
+  LList<T> concat(LList<T> &other) {
+    LList<T> result(*this);
+    result.append(other);
+    return result;
+  }
+
+  void reverse() {
+    for (int i = 0; i < this->size/2; i++) {
+      std::swap((*this)[i], (*this)[this->size-i-1]);
+    }
+  }
+
+  void map(std::function<T(T)> f) {
+    for (int i = 0; i < this->size; i++) {
+      (*this)[i] = f((*this)[i]);
+    }
+  }
 };
 
-template <typename R>
-std::ostream &operator<<(std::ostream &out, const LList<R> &ll) {
-  box<R> *cur = ll.first;
+template <typename T>
+std::ostream &operator<<(std::ostream &out, LList<T> &ll) {
+  box<T> *cur = ll.get_first();
   out << "{";
   while (cur != nullptr) {
     out << " " << cur->data;
