@@ -38,14 +38,14 @@ private:
   }
 
 public:
-  LList<T>() {
+  LList() {
     this->first = nullptr;
     this->size = 0;
   }
 
-  LList<T>(const LList<T> &other) { copy(other); }
+  LList(const LList<T> &other) { copy(other); }
 
-  LList<T>(int x, int y) {
+  LList(int x, int y) {
     this->first = new box<int>{x, nullptr};
     box<int> *cur = this->first;
     for (int i = x + 1; i <= y; i++) {
@@ -54,6 +54,8 @@ public:
     }
     this->size = y - x + 1;
   }
+
+  ~LList() { clear(); }
 
   LList<T> &operator=(const LList<T> &other) {
     if (this != &other) {
@@ -219,8 +221,6 @@ public:
       (*this)[i] = f((*this)[i]);
     }
   }
-
-  ~LList<T>() { clear(); }
 };
 
 template <typename T>
