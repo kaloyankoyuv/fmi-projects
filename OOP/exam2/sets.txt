@@ -1,0 +1,9 @@
+SetUnion
+SetUnion
+Singleton 1
+Singleton 3
+SetUnion
+EvenInts
+Singleton 5
+EmptySet
+
